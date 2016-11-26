@@ -11,7 +11,14 @@ cordova plugin add com-sarriaroman-photoviewer
 > Out of the box
 
 ### iOS
-> Out of the box
+
+As of iOS 10, an [`NSPhotoLibraryUsageDescription`](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW17) entry is required in Info.plist, specifying the reason for accessing the user’s photo library (when tapping "Save Image" after sharing an image).
+
+The reason can be specified by passing the `PHOTO_LIBRARY_USAGE_DESCRIPTION` variable when installing the plugin (otherwise defaults to a hyphen).
+
+```
+cordova plugin add com-sarriaroman-photoviewer --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="message"
+```
 
 
 ### API
