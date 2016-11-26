@@ -17,7 +17,7 @@ As of iOS 10, an [`NSPhotoLibraryUsageDescription`](https://developer.apple.com/
 The reason can be specified by passing the `PHOTO_LIBRARY_USAGE_DESCRIPTION` variable when installing the plugin (otherwise defaults to a hyphen).
 
 ```
-cordova plugin add com-sarriaroman-photoviewer --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="message"
+cordova plugin add com-sarriaroman-photoviewer --save --variable PHOTO_LIBRARY_USAGE_DESCRIPTION="message"
 ```
 
 
