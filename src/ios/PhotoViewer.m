@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong) UIDocumentInteractionController *docInteractionController;
 @property (nonatomic, strong) NSMutableArray *documentURLs;
+@property (nonatomic, strong) NSString *callbackId;
 
 - (void)show:(CDVInvokedUrlCommand*)command;
 @end
@@ -42,6 +43,12 @@
     return self.viewController;
 }
 
+- (void) documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *) controller {
+    CDVPluginResult* pluginResult = nil;
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"close"];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+}
+
 - (void)show:(CDVInvokedUrlCommand*)command
 {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:self.viewController.view.frame];
@@ -57,6 +64,7 @@
     CDVPluginResult* pluginResult = nil;
     NSString* url = [command.arguments objectAtIndex:0];
     NSString* title = [command.arguments objectAtIndex:1];
+    self.callbackId = command.callbackId;
 
     if (url != nil && [url length] > 0) {
         [self.commandDelegate runInBackground:^{
@@ -75,12 +83,12 @@
                 });
             }
         }];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"open"];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
 
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 }
 
 - (NSURL *)localFileURLForImage:(NSString *)image
