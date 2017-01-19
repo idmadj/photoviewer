@@ -45,7 +45,7 @@
 
 - (void) documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *) controller {
     CDVPluginResult* pluginResult = nil;
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"close"];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 }
 
@@ -83,12 +83,10 @@
                 });
             }
         }];
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"open"];
     } else {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
     }
-
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
 }
 
 - (NSURL *)localFileURLForImage:(NSString *)image
